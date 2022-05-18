@@ -1,22 +1,15 @@
-function disconedUser(socket, io) {
-    socket.on('disconnect', ()=>{
-    })
-}
-
-
 module.exports = {
-    connection: (io)=>{
-        io.on('connection', (socket)=>{
-            disconedUser(socket, io)
-        })
-    },
+
+    //функция для обмена данными между пользователями
     data:(io)=>{
-        io.on('connection', (socket)=>{
-            socket.on('socket', (msg)=>{
-                io.emit('socket', socket.username + ": " + msg)
+        io.on('connection', (socket)=>{         //подключение пльзователя по ключу connection
+            socket.on('socket', (msg)=>{        //получение данных от пользователей
+                io.emit('socket', socket.username + ": " + msg)     //отправка данных пользователям
             })
         })
     },
+
+    //функция устанавливающая имя подключенного пользователя
     username:(io, username)=>{
         io.on('connection', (socket)=>{
             socket.username = username
